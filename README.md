@@ -1,6 +1,7 @@
 # device-sensor
 The software for sensor measurement.
 
+```sh
 docker run \
 -e "MQTT_ADDRESS=mqtt://192.168.0.49" \
 -e "PIN=4" \
@@ -10,7 +11,9 @@ docker run \
 -e "MEASUREMENT_INTERVAL=6000" \
 -e "DEVICE_MODEL=11" \
 --privileged -d devicemanagment/device-sensor
+```
 
+```sh
 docker run \
 -e "MQTT_ADDRESS=mqtt://192.168.0.49" \
 -e "PIN=4" \
@@ -20,4 +23,4 @@ docker run \
 -e "MEASUREMENT_INTERVAL=6000" \
 -e "DEVICE_MODEL=11" \
 --privileged -d devicemanagment/device-sensor
-
+```
