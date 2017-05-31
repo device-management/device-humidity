@@ -8,9 +8,9 @@ docker run \
 -e "DEVICE_ID=TEMP01" \
 -e "DEVICE_NAME=Temperature sensor" \
 -e "DEVICE_TYPE=temperature" \
--e "MEASUREMENT_INTERVAL=6000" \
+-e "MEASUREMENT_INTERVAL=60000" \
 -e "DEVICE_MODEL=11" \
---privileged -d devicemanagment/device-sensor
+--restart=unless-stopped --privileged -d devicemanagment/device-sensor
 ```
 
 ```sh
@@ -20,7 +20,7 @@ docker run \
 -e "DEVICE_ID=HUM01" \
 -e "DEVICE_NAME=Humidity sensor" \
 -e "DEVICE_TYPE=humidity" \
--e "MEASUREMENT_INTERVAL=6000" \
+-e "MEASUREMENT_INTERVAL=60000" \
 -e "DEVICE_MODEL=11" \
---privileged -d devicemanagment/device-sensor
+--restart=unless-stopped --privileged -d devicemanagment/device-sensor
 ```
