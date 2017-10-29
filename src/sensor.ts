@@ -6,19 +6,12 @@ export namespace DeviceManager {
 
     export class Sensor extends Device {
 
-        constructor(
-            mqttConfig: MqttConfig,
-            deviceDescription: DeviceDescription,
-            private sensorConfig: SensorConfig) {
-            super(mqttConfig, deviceDescription);
-        }
-
         doStart(): Observable<any> {
             console.log("Starting sensor...")
             let start = super.doStart();
             start.subscribe(() => { }, () => { }, () => {
-                console.log("Starting to measure with frequency: " + this.deviceDescription.properties.interval + " ms");
-                setInterval(this.getMeasurmentHandler(), this.deviceDescription.properties.interval);
+                console.log("Starting to measure with frequency: " + this.device.configuration.interval + " ms");
+                setInterval(this.getMeasurmentHandler(), this.device.configuration.interval);
             });
             return start;
         };
@@ -26,16 +19,16 @@ export namespace DeviceManager {
         private getMeasurmentHandler(): () => void {
             let self = this;
             return () => {
-                sensor.read(self.sensorConfig.sensorModel, self.sensorConfig.pin, (err: any, temperature: number, humidity: number) => {
+                sensor.read(self.device.configuration.model, self.device.configuration.pin, (err: any, temperature: number, humidity: number) => {
                     if (!err) {
                         console.log("The sensor completed a measurement.")
                         console.log("Temperature: " + temperature);
                         console.log("Humidity: " + humidity);
-                        let measurement = self.deviceDescription.properties.type == DeviceTypes.Temperature ? temperature : humidity;
+                        let measurement = self.device.type == DeviceTypes.Temperature ? temperature : humidity;
                         self.mqttClient.publish(
-                            "devices/" + self.deviceDescription.deviceId + "/measurment",
+                            "devices/" + self.device.id + "/measurment",
                             JSON.stringify({
-                                deviceId: self.deviceDescription.deviceId,
+                                deviceId: self.device.id,
                                 points: [{
                                     value: measurement,
                                     timestamp: new Date()
@@ -50,11 +43,6 @@ export namespace DeviceManager {
                 });
             }
         }
-    }
-
-    export interface SensorConfig {
-        pin: number;
-        sensorModel: number;
     }
 
     class DeviceTypes {

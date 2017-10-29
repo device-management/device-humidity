@@ -13,17 +13,17 @@ let sensor = new DeviceManager.Sensor(
         brokerAddress: mqttAddress
     },
     {
-        deviceId: deviceId,
-        properties: {
-            name: deviceName,
-            type: deviceType,
-            isOnline: true,
-            interval: measurementInterval
+        id: deviceId,
+        name: deviceName,
+        type: deviceType,
+        configuration: {
+            interval: measurementInterval,
+            pin: pinNumber,
+            model: deviceModel
+        },
+        state: {
+            isOnline: true
         }
-    },
-    {
-        pin: pinNumber,
-        sensorModel: deviceModel
     }
 );
 

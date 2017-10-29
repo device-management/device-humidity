@@ -1,6 +1,6 @@
 {
   "name": "@device-management/device-sensor",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "The software for sensor measurement.",
   "license": "MIT",
   "repository": "https://github.com/device-management/device-sensor",
@@ -15,7 +15,7 @@
     "build": "tsc --pretty"
   },
   "dependencies": {
-    "@device-management/device-base": "0.0.1",
+    "@device-management/device-base": "0.1.0",
     "node-dht-sensor": "0.0.32"
   },
   "devDependencies": {
